@@ -50,10 +50,14 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
   <Entypo name="paper-plane" size={20} color="#183b34" />
   <Text style={{fontWeight:"bold",color:"#183b34"}}>Send</Text></View>
 <View style={{backgroundColor:"white",height:35,width:"45%",borderRadius:16,justifyContent:"center",flexDirection:"row",gap:5,paddingTop:7}}>
-  <MaterialIcons name="call-received" size={20} color="#183b34" /><Text style={{color:"#183b34",fontWeight:"bold"}}>Receive</Text></View>
+  <MaterialIcons name="call-received" size={20} color="#183b34" />
+  <Text style={{color:"#183b34",fontWeight:"bold"}}>Receive</Text></View>
 </View>
 
 
+      </View>
+      <View>
+        <View style={{backgroundColor:"white",height:50}}></View>
       </View>
 
     </View>
