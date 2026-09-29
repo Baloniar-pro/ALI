@@ -1,0 +1,38 @@
+{
+  "expo": {
+    "name": "Baloniar",
+    "slug": "Baloniar",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/google.png",
+    "scheme": "ali",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/images/android-icon-foreground.png",
+        "backgroundImage": "./assets/images/android-icon-background.png",
+        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+      },
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "output": "single",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-splash-screen"
+      ],
+      "expo-secure-store"
+    ],
+    "experiments": {
+      "reactCompiler": true
+    }
+  }
+}
