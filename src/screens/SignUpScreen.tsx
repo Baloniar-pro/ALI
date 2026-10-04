@@ -42,7 +42,24 @@ export default function SignUpScreen({ navigation }: SignUpScreenProps) {
     }
 
     setIsCreatingAccount(true);
-    return (
+    try {
+      const result = await createAccount({ username: trimmedUsername, password });
+
+      if (result === "already-exists") {
+        Alert.alert("Account exists", "An account already exists on this device.");
+        return;
+      }
+
+      Alert.alert("Account created", "You can now sign in with your new account.");
+      navigation.navigate("SignIn");
+    } catch {
+      Alert.alert("Could not create account", "Please try again.");
+    } finally {
+      setIsCreatingAccount(false);
+    }
+  };
+
+  return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <SafeAreaView style={styles.safeArea}>
           <KeyboardAvoidingView
@@ -170,7 +187,7 @@ export default function SignUpScreen({ navigation }: SignUpScreenProps) {
         </SafeAreaView>
       </TouchableWithoutFeedback>
     );
-  }
+}
 
   const styles = StyleSheet.create({
     safeArea: {
