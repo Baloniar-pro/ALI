@@ -2,14 +2,15 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useState } from "react";
 import {
-  Alert,
-  Image,
-  Keyboard,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  View,
+    Alert,
+    Image,
+    Keyboard,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    TouchableWithoutFeedback,
+    View,
 } from "react-native";
 import { useAuth } from "../src/context/AuthContext";
 import type { RootStackParamList } from "../src/navigation/types";
@@ -80,61 +81,38 @@ export default function SignInScreen({ navigation }: SignInScreenProps) {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={{ flex: 1, marginTop: 25, backgroundColor: authColors.background }}>
-        
-        {/* TITLE */}
-        <View style={{ alignSelf: "center", paddingTop: 215 }}>
-          <Text style={{ ...authTypography.title, color: authColors.primary }}>
-            Welcome back!
-          </Text>
+      <View style={styles.container}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Welcome back!</Text>
         </View>
 
-        {/* USERNAME */}
-        <View style={{
-          alignItems: "center",
-          flexDirection: "row",
-          height: 54,
-          paddingHorizontal: 16,
-          borderWidth: 1,
-          borderColor: authColors.border,
-          borderRadius: 12,
-          backgroundColor: authColors.surface,
-          marginHorizontal: 24,
-          marginTop: 10,
-        }}>
-          <FontAwesome name="user-o" size={18} color={authColors.icon} style={{ marginRight: 12 }} />
+        <View style={styles.inputContainer}>
+          <FontAwesome name="user-o" size={18} color={authColors.icon} style={styles.inputIcon} />
           <TextInput
             placeholder="Enter Username"
             placeholderTextColor={authColors.placeholder}
             value={username}
             onChangeText={setUsername}
-            style={{ flex: 1, ...authTypography.input, color: authColors.primary }}
+            style={styles.input}
           />
         </View>
 
-        {/* PASSWORD */}
-        <View style={{
-          alignItems: "center",
-          flexDirection: "row",
-          height: 54,
-          paddingHorizontal: 16,
-          borderWidth: 1,
-          borderColor: authColors.border,
-          borderRadius: 12,
-          backgroundColor: authColors.surface,
-          marginHorizontal: 24,
-          marginTop: 10,
-        }}>
-          <FontAwesome name="lock" size={20} color={authColors.icon} style={{ marginRight: 12 }} />
+        <View style={styles.inputContainer}>
+          <FontAwesome name="lock" size={20} color={authColors.icon} style={styles.inputIcon} />
           <TextInput
             placeholder="Enter Password"
             placeholderTextColor={authColors.placeholder}
             secureTextEntry={!showPassword}
             value={password}
             onChangeText={setPassword}
-            style={{ flex: 1, ...authTypography.input, color: authColors.primary }}
+            style={styles.input}
           />
-          <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+          <TouchableOpacity
+            accessibilityRole="button"
+            accessibilityLabel={showPassword ? "Hide password" : "Show password"}
+            onPress={() => setShowPassword(!showPassword)}
+            style={styles.passwordToggle}
+          >
             <FontAwesome
               name={showPassword ? "eye" : "eye-slash"}
               size={18}
@@ -143,77 +121,32 @@ export default function SignInScreen({ navigation }: SignInScreenProps) {
           </TouchableOpacity>
         </View>
 
-        {/* FORGOT PASSWORD */}
-        <TouchableOpacity
-          onPress={handleForgotPassword}
-        >
-          <Text style={{
-            alignSelf: "flex-end",
-            marginTop: 7,
-            color: authColors.primary,
-            marginRight: 24,
-            ...authTypography.link,
-          }}>
+        <TouchableOpacity onPress={handleForgotPassword}>
+          <Text style={styles.forgotPassword}>
             {isResettingPassword ? "Cancel Password Reset" : "Forgot Password?"}
           </Text>
         </TouchableOpacity>
 
-        {/* SIGN IN BUTTON */}
-        <TouchableOpacity onPress={handleSignIn}>
-          <View style={{
-            height: 54,
-            marginHorizontal: 24,
-            backgroundColor: authColors.primary,
-            borderRadius: 12,
-            marginTop: 10,
-            justifyContent: "center",
-          }}>
-            <Text style={{
-              color: "white",
-              alignSelf: "center",
-              ...authTypography.button,
-            }}>
-              {isResettingPassword
-                ? "RESET PASSWORD"
-                : "SIGN IN"}
-            </Text>
-          </View>
+        <TouchableOpacity onPress={handleSignIn} style={styles.signInButton}>
+          <Text style={styles.signInButtonText}>
+            {isResettingPassword ? "RESET PASSWORD" : "SIGN IN"}
+          </Text>
         </TouchableOpacity>
 
-        {/* DIVIDER */}
-        <View style={{
-          flexDirection: "row",
-          marginTop: 20,
-          alignItems: "center",
-          alignSelf: "center",
-        }}>
-          <View style={{ height: 1, backgroundColor: authColors.divider, flex: 1 }} />
-          <Text style={{ marginHorizontal: 10, color: authColors.muted }}>or</Text>
-          <View style={{ height: 1, backgroundColor: authColors.divider, flex: 1 }} />
+        <View style={styles.dividerContainer}>
+          <View style={styles.dividerLine} />
+          <Text style={styles.dividerText}>or</Text>
+          <View style={styles.dividerLine} />
         </View>
 
-        {/* SOCIAL LOGIN */}
-        <View style={{
-          flexDirection: "row",
-          justifyContent: "center",
-          gap: 12,
-          marginTop: 10,
-        }}>
-          <Image
-            source={require("../assets/images/google.png")}
-            style={{ height: 40, width: 40 }}
-          />
-          <View style={{ height: 40, width: 1, backgroundColor: authColors.divider }} />
+        <View style={styles.socialLogin}>
+          <Image source={require("../assets/images/google.png")} style={styles.socialIcon} />
+          <View style={styles.socialDivider} />
           <FontAwesome name="apple" size={42} color={authColors.primary} />
         </View>
 
-        {/* SIGN UP OPTION */}
-        <View style={{
-          flexDirection: "row",
-          justifyContent: "center",
-          marginTop: 20,
-        }}>
-          <Text style={{ color: authColors.muted, ...authTypography.footer }}>
+        <View style={styles.signUpContainer}>
+          <Text style={styles.footerText}>
             {isResettingPassword ? "Remembered your password? " : "Don't have an account? "}
           </Text>
           <TouchableOpacity
@@ -221,15 +154,115 @@ export default function SignInScreen({ navigation }: SignInScreenProps) {
             onPress={() =>
               isResettingPassword
                 ? setIsResettingPassword(false)
-                : navigation.navigate("SignUp")}
+                : navigation.navigate("SignUp")
+            }
           >
-            <Text style={{ color: authColors.primary, ...authTypography.link }}>
-              {isResettingPassword ? "Sign In" : "Sign Up"}
-            </Text>
+            <Text style={styles.linkText}>{isResettingPassword ? "Sign In" : "Sign Up"}</Text>
           </TouchableOpacity>
         </View>
-
       </View>
     </TouchableWithoutFeedback>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 25,
+    backgroundColor: authColors.background,
+  },
+  titleContainer: {
+    alignSelf: "center",
+    paddingTop: 215,
+  },
+  title: {
+    ...authTypography.title,
+    color: authColors.primary,
+  },
+  inputContainer: {
+    alignItems: "center",
+    flexDirection: "row",
+    height: 54,
+    marginHorizontal: 24,
+    marginTop: 10,
+    paddingHorizontal: 16,
+    borderWidth: 1,
+    borderColor: authColors.border,
+    borderRadius: 12,
+    backgroundColor: authColors.surface,
+  },
+  inputIcon: {
+    marginRight: 12,
+  },
+  input: {
+    flex: 1,
+    ...authTypography.input,
+    color: authColors.primary,
+  },
+  passwordToggle: {
+    padding: 4,
+  },
+  forgotPassword: {
+    alignSelf: "flex-end",
+    marginTop: 7,
+    marginRight: 24,
+    color: authColors.primary,
+    ...authTypography.link,
+  },
+  signInButton: {
+    height: 54,
+    alignItems: "center",
+    justifyContent: "center",
+    marginHorizontal: 24,
+    marginTop: 10,
+    borderRadius: 12,
+    backgroundColor: authColors.primary,
+  },
+  signInButtonText: {
+    color: "white",
+    ...authTypography.button,
+  },
+  dividerContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    alignSelf: "center",
+    marginTop: 20,
+  },
+  dividerLine: {
+    flex: 1,
+    height: 1,
+    backgroundColor: authColors.divider,
+  },
+  dividerText: {
+    marginHorizontal: 10,
+    color: authColors.muted,
+  },
+  socialLogin: {
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 12,
+    marginTop: 10,
+  },
+  socialIcon: {
+    height: 40,
+    width: 40,
+  },
+  socialDivider: {
+    height: 40,
+    width: 1,
+    backgroundColor: authColors.divider,
+  },
+  signUpContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 20,
+  },
+  footerText: {
+    color: authColors.muted,
+    ...authTypography.footer,
+  },
+  linkText: {
+    color: authColors.primary,
+    ...authTypography.link,
+  },
+});
