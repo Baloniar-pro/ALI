@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   avatar: { width: 74, height: 74, resizeMode: "contain" },
   username: { marginTop: 12, color: "#202b27", fontSize: 19, fontWeight: "700" },
   memberLabel: { marginTop: 5, color: "#74817b", fontSize: 13 },
-  sectionTitle: { marginTop: 14, marginBottom: 10, color: "#202b27", fontSize: 16, fontWeight: "700" },
+  sectionTitle: { marginTop: 14, marginBottom: 10, color: "#202b27", fontSize: 16, fontWeight: "600" },
   details: { paddingHorizontal: 15, borderRadius: 10, backgroundColor: "#f5f8f6" },
   detailRow: {
     minHeight: 52,
