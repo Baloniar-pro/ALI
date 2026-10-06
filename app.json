@@ -4,7 +4,7 @@
     "slug": "Baloniar",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/google.png",
+    "icon": "./assets/images/app icon.png",
     "scheme": "ali",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -25,12 +25,7 @@
       "output": "single",
       "favicon": "./assets/images/favicon.png"
     },
-    "plugins": [
-      [
-        "expo-splash-screen"
-      ],
-      "expo-secure-store"
-    ],
+    "plugins": [["expo-splash-screen"], "expo-secure-store"],
     "experiments": {
       "reactCompiler": true
     }
