@@ -2,15 +2,15 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useState } from "react";
 import {
-    Alert,
-    Image,
-    Keyboard,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    TouchableWithoutFeedback,
-    View,
+  Alert,
+  Image,
+  Keyboard,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View
 } from "react-native";
 import { useAuth } from "../src/context/AuthContext";
 import type { RootStackParamList } from "../src/navigation/types";
@@ -24,6 +24,7 @@ export default function SignInScreen({ navigation }: SignInScreenProps) {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isResettingPassword, setIsResettingPassword] = useState(false);
+
 
   const handleSignIn = async () => {
     if (!isReady) {
@@ -78,6 +79,7 @@ export default function SignInScreen({ navigation }: SignInScreenProps) {
     setPassword("");
     Alert.alert("Reset Password", "Enter your username and your new password.");
   };
+
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
