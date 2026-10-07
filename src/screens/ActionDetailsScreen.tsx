@@ -256,7 +256,7 @@ export default function ActionDetailsScreen({
               style={styles.textInput}
               value={requestAmount}
             />
-            <Text style={styles.fieldLabel}>Description</Text>
+            <Text style={styles.fieldLabel}>Description (Optional)</Text>
             <TextInput
               accessibilityLabel="Request description"
               onChangeText={setRequestDescription}
@@ -265,7 +265,7 @@ export default function ActionDetailsScreen({
               style={styles.textInput}
               value={requestDescription}
             />
-            <Text style={styles.fieldLabel}>Narration</Text>
+            <Text style={styles.fieldLabel}>Narration (Optional)</Text>
             <TextInput
               accessibilityLabel="Request narration"
               onChangeText={setRequestNarration}
@@ -349,7 +349,7 @@ export default function ActionDetailsScreen({
               style={styles.textInput}
               value={amount}
             />
-            <Text style={styles.fieldLabel}>(Optional) Description</Text>
+            <Text style={styles.fieldLabel}>Description (Optional)</Text>
             <TextInput
               accessibilityLabel="Transfer description, optional"
               onChangeText={setDescription}
@@ -358,7 +358,7 @@ export default function ActionDetailsScreen({
               style={styles.textInput}
               value={description}
             />
-            <Text style={styles.fieldLabel}>(Optional) Narration</Text>
+            <Text style={styles.fieldLabel}>Narration (Optional)</Text>
             <TextInput
               accessibilityLabel="Transfer narration, optional"
               onChangeText={setNarration}
