@@ -1,5 +1,7 @@
 import { FontAwesome } from "@expo/vector-icons";
+import type { CompositeScreenProps } from "@react-navigation/native";
 import type { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
+import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useState } from "react";
 import {
   SafeAreaView,
@@ -11,9 +13,18 @@ import {
 } from "react-native";
 import TransactionRow from "../components/TransactionRow";
 import { sampleTransactions } from "../data/transactions";
-import type { MainTabParamList } from "../navigation/types";
+import type { MainTabParamList, RootStackParamList } from "../navigation/types";
 
-type HomeScreenProps = BottomTabScreenProps<MainTabParamList, "Home">;
+type HomeScreenProps = CompositeScreenProps<
+  BottomTabScreenProps<MainTabParamList, "Home">,
+  NativeStackScreenProps<RootStackParamList>
+>;
+
+const quickActions = [
+  { id: "send", label: "Send", icon: "send" },
+  { id: "receive", label: "Receive", icon: "download" },
+  { id: "topup", label: "Top up", icon: "plus" },
+] as const;
 
 export default function HomeScreen({ route, navigation }: HomeScreenProps) {
   const username = route.params.username;
@@ -52,8 +63,24 @@ export default function HomeScreen({ route, navigation }: HomeScreenProps) {
           <Text style={styles.balanceNote}>Across your wallets</Text>
           <View style={styles.balanceFooter}>
             <Text style={styles.accountLabel}>PERSONAL ACCOUNT</Text>
-            <Text style={styles.accountNumber}>•••• 2048</Text>
+            <Text style={styles.accountNumber}>....1275</Text>
           </View>
+        </View>
+
+        <View style={styles.quickActions}>
+          {quickActions.map((action) => (
+            <TouchableOpacity
+              key={action.id}
+              accessibilityRole="button"
+              onPress={() =>
+                navigation.navigate("ActionDetails", { action: action.id, username })
+              }
+              style={styles.quickAction}
+            >
+              <FontAwesome name={action.icon} size={17} color="#24734e" />
+              <Text style={styles.quickActionLabel}>{action.label}</Text>
+            </TouchableOpacity>
+          ))}
         </View>
 
         <View style={styles.summaryRow}>
@@ -141,6 +168,22 @@ const styles = StyleSheet.create({
   },
   accountLabel: { color: "#d5e4dd", fontSize: 10, fontWeight: "700" },
   accountNumber: { color: "#ffffff", fontSize: 12 },
+  quickActions: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    gap: 12,
+    marginTop: 18,
+  },
+  quickAction: {
+    flex: 1,
+    minHeight: 74,
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
+    borderRadius: 12,
+    backgroundColor: "#f2f7f4",
+  },
+  quickActionLabel: { color: "#202b27", fontSize: 12, fontWeight: "600" },
   summaryRow: {
     flexDirection: "row",
     alignItems: "center",

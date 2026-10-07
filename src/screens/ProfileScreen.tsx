@@ -1,11 +1,21 @@
 import type { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
-import { Image, SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
+import { useState } from "react";
+import {
+  Image,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import type { MainTabParamList } from "../navigation/types";
 
 type ProfileScreenProps = BottomTabScreenProps<MainTabParamList, "Profile">;
 
 export default function ProfileScreen({ route }: ProfileScreenProps) {
   const username = route.params.username;
+  const [isAccountNumberVisible, setIsAccountNumberVisible] = useState(false);
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -27,10 +37,18 @@ export default function ProfileScreen({ route }: ProfileScreenProps) {
             <Text style={styles.detailLabel}>Account type</Text>
             <Text style={styles.detailValue}>Personal</Text>
           </View>
-          <View style={styles.detailRow}>
+          <TouchableOpacity
+            accessibilityLabel={isAccountNumberVisible ? "Hide account number" : "Show account number"}
+            accessibilityRole="button"
+            activeOpacity={0.7}
+            onPress={() => setIsAccountNumberVisible(!isAccountNumberVisible)}
+            style={styles.detailRow}
+          >
             <Text style={styles.detailLabel}>Account number</Text>
-            <Text style={styles.detailValue}>•••• 2048</Text>
-          </View>
+            <Text style={styles.detailValue}>
+              {isAccountNumberVisible ? "7083391275" : "....1275"}
+            </Text>
+          </TouchableOpacity>
         </View>
 
         <Text style={styles.sectionTitle}>Security</Text>

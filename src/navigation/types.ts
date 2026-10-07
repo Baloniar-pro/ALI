@@ -1,7 +1,10 @@
+export type QuickAction = "send" | "receive" | "topup";
+
 export type RootStackParamList = {
   SignIn: undefined;
   Home: { username: string };
   SignUp: undefined;
+  ActionDetails: { action: QuickAction; username: string };
 };
 
 export type MainTabParamList = {
