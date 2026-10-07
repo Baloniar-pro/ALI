@@ -13,7 +13,7 @@ import {
   View,
 } from "react-native";
 import { useAuth } from "../context/AuthContext";
-import type { RootStackParamList } from "../navigation/types";
+import type { RootStackParamList } from "../../../navigation/types";
 import { authColors, authTypography } from "../theme/authTheme";
 
 type ForgotPasswordScreenProps = NativeStackScreenProps<

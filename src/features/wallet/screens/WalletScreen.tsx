@@ -1,6 +1,6 @@
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
-import TransactionRow from "../components/TransactionRow";
-import { formatNaira, getTransactionTotals, sampleTransactions } from "../data/transactions";
+import TransactionRow from "../../../components/TransactionRow";
+import { formatNaira, getTransactionTotals, sampleTransactions } from "../../transactions/data/transactions";
 
 export default function WalletScreen() {
   const transactionTotals = getTransactionTotals();

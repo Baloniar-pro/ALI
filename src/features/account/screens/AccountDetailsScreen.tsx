@@ -10,9 +10,9 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { useAuth } from "../context/AuthContext";
-import { formatNaira, getTransactionTotals } from "../data/transactions";
-import type { RootStackParamList } from "../navigation/types";
+import { useAuth } from "../../auth/context/AuthContext";
+import { formatNaira, getTransactionTotals } from "../../transactions/data/transactions";
+import type { RootStackParamList } from "../../../navigation/types";
 
 type AccountDetailsScreenProps = NativeStackScreenProps<
   RootStackParamList,

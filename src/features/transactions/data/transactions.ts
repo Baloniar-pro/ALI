@@ -1,4 +1,4 @@
-import type { Transaction } from "../components/TransactionRow";
+import type { Transaction } from "../../../components/TransactionRow";
 
 export const sampleTransactions: Transaction[] = [
   {

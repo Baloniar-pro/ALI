@@ -1,10 +1,10 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
-import HomeScreen from "../screens/HomeScreen";
-import ProfileScreen from "../screens/ProfileScreen";
-import TransactionsScreen from "../screens/TransactionsScreen";
-import WalletScreen from "../screens/WalletScreen";
+import HomeScreen from "../features/dashboard/screens/HomeScreen";
+import ProfileScreen from "../features/account/screens/ProfileScreen";
+import TransactionsScreen from "../features/transactions/screens/TransactionsScreen";
+import WalletScreen from "../features/wallet/screens/WalletScreen";
 import type { MainTabParamList, RootStackParamList } from "./types";
 
 type MainTabNavigatorProps = NativeStackScreenProps<RootStackParamList, "Home">;

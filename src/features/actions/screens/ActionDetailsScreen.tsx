@@ -12,7 +12,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import type { QuickAction, RootStackParamList } from "../navigation/types";
+import type { QuickAction, RootStackParamList } from "../../../navigation/types";
 
 type ActionDetailsScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -393,10 +393,7 @@ export default function ActionDetailsScreen({
                   }\n\nThis transfer has not been sent. Transfers are not enabled yet.`,
                 );
               }}
-              style={[
-                styles.submitButton,
-                !isSendFormComplete && styles.submitButtonDisabled,
-              ]}
+              style={styles.submitButton}
             >
               <Text style={styles.submitButtonText}>Send money</Text>
             </TouchableOpacity>
@@ -494,7 +491,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: "#183b34",
   },
-  submitButtonDisabled: { opacity: 0.45 },
   submitButtonText: { color: "#ffffff", fontSize: 14, fontWeight: "700" },
   formNote: { marginTop: 14, color: "#74817b", fontSize: 12, lineHeight: 18 },
 });

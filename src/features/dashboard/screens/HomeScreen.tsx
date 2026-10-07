@@ -11,9 +11,9 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import TransactionRow from "../components/TransactionRow";
-import { formatNaira, getTransactionTotals, sampleTransactions } from "../data/transactions";
-import type { MainTabParamList, RootStackParamList } from "../navigation/types";
+import TransactionRow from "../../../components/TransactionRow";
+import { formatNaira, getTransactionTotals, sampleTransactions } from "../../transactions/data/transactions";
+import type { MainTabParamList, RootStackParamList } from "../../../navigation/types";
 
 type HomeScreenProps = CompositeScreenProps<
   BottomTabScreenProps<MainTabParamList, "Home">,

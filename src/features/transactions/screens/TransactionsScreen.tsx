@@ -1,5 +1,5 @@
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
-import TransactionRow from "../components/TransactionRow";
+import TransactionRow from "../../../components/TransactionRow";
 import { sampleTransactions } from "../data/transactions";
 
 export default function TransactionsScreen() {

@@ -18,20 +18,23 @@ Use the terminal shortcuts to open the app in an Android emulator, iOS simulator
 ```text
 .
 ├── assets/
-│   └── images/             # App and screen images
+│   └── images/              # App and screen images
+├── App.tsx                  # Application root and root stack
 ├── src/
-│   ├── components/         # Reusable UI components
-│   ├── context/            # Shared application state and authentication
-│   ├── data/               # Sample app data
-│   ├── navigation/         # Navigators and route types
-│   ├── screens/            # Application screens
-│   └── theme/              # Shared colors and typography
-├── App.tsx                 # Application root and root stack
-└── package.json
+│   ├── components/          # Reusable UI components
+│   ├── features/
+│   │   ├── account/         # Profile and account details
+│   │   ├── actions/         # Send, receive, and top-up flows
+│   │   ├── auth/            # Authentication context, screens, and theme
+│   │   ├── dashboard/       # Home screen
+│   │   ├── transactions/    # Transaction data and history screen
+│   │   └── wallet/          # Wallet screen
+│   └── navigation/          # Navigators and route types
+├── package.json
+└── README.md
 ```
 
-The project uses React Navigation, not Expo Router. Put screens in `src/screens`, reusable UI in `src/components`, and navigation definitions in `src/navigation`.
-`App.tsx` is the Expo application entry point.
+The project uses React Navigation, not Expo Router. Feature-specific screens and state live under `src/features`; shared UI belongs in `src/components`, and navigation definitions belong in `src/navigation`. `App.tsx` is the Expo application entry point.
 
 ## Useful commands
 

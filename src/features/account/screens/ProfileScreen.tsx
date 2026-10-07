@@ -10,8 +10,8 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { useAuth } from "../context/AuthContext";
-import type { MainTabParamList } from "../navigation/types";
+import { useAuth } from "../../auth/context/AuthContext";
+import type { MainTabParamList } from "../../../navigation/types";
 
 type ProfileScreenProps = BottomTabScreenProps<MainTabParamList, "Profile">;
 
@@ -40,7 +40,7 @@ export default function ProfileScreen({ route }: ProfileScreenProps) {
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.title}>Profile</Text>
         <View style={styles.profileHeader}>
-          <Image source={require("../../assets/images/user.png")} style={styles.avatar} />
+          <Image source={require("../../../../assets/images/user.png")} style={styles.avatar} />
           <Text style={styles.username}>{username}</Text>
           <Text style={styles.memberLabel}>Baloniar member</Text>
         </View>
