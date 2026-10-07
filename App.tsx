@@ -1,5 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import SignInScreen from "./app/index";
 import { AuthProvider } from "./src/context/AuthContext";
 import MainTabNavigator from "./src/navigation/MainTabNavigator";
@@ -10,6 +11,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
   return (
+    <SafeAreaProvider>
     <AuthProvider>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -19,5 +21,6 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
     </AuthProvider>
+    </SafeAreaProvider>
   );
 }
