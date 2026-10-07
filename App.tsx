@@ -1,13 +1,13 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import SignInScreen from "./app/index";
 import { AuthProvider, useAuth } from "./src/context/AuthContext";
 import MainTabNavigator from "./src/navigation/MainTabNavigator";
 import type { RootStackParamList } from "./src/navigation/types";
 import ActionDetailsScreen from "./src/screens/ActionDetailsScreen";
 import AccountDetailsScreen from "./src/screens/AccountDetailsScreen";
 import ForgotPasswordScreen from "./src/screens/ForgotPasswordScreen";
+import SignInScreen from "./src/screens/SignInScreen";
 import SignUpScreen from "./src/screens/SignUpScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();

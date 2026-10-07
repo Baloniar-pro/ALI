@@ -12,9 +12,9 @@ import {
   TouchableWithoutFeedback,
   View
 } from "react-native";
-import { useAuth } from "../src/context/AuthContext";
-import type { RootStackParamList } from "../src/navigation/types";
-import { authColors, authTypography } from "../src/theme/authTheme";
+import { useAuth } from "../context/AuthContext";
+import type { RootStackParamList } from "../navigation/types";
+import { authColors, authTypography } from "../theme/authTheme";
 
 type SignInScreenProps = NativeStackScreenProps<RootStackParamList, "SignIn">;
 
@@ -123,7 +123,7 @@ export default function SignInScreen({ navigation }: SignInScreenProps) {
         </View>
 
         <View style={styles.socialLogin}>
-          <Image source={require("../assets/images/google.png")} style={styles.socialIcon} />
+          <Image source={require("../../assets/images/google.png")} style={styles.socialIcon} />
           <View style={styles.socialDivider} />
           <FontAwesome name="apple" size={42} color={authColors.primary} />
         </View>
