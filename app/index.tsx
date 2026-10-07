@@ -129,7 +129,7 @@ export default function SignInScreen({ navigation }: SignInScreenProps) {
         </View>
 
         <View style={styles.signUpContainer}>
-          <Text style={styles.footerText}>Don't have an account? </Text>
+          <Text style={styles.footerText}>Don&apos;t have an account? </Text>
           <TouchableOpacity
             accessibilityRole="button"
             onPress={() => navigation.navigate("SignUp")}

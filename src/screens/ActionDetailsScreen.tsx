@@ -215,7 +215,7 @@ export default function ActionDetailsScreen({
               <Text style={styles.submitButtonText}>Preview top up</Text>
             </TouchableOpacity>
             <Text style={styles.formNote}>
-              Bill and subscription payments aren't connected yet. This only previews your details.
+              Bill and subscription payments are not connected yet. This only previews your details.
             </Text>
           </View>
         )}
