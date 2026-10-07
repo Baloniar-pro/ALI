@@ -349,18 +349,18 @@ export default function ActionDetailsScreen({
               style={styles.textInput}
               value={amount}
             />
-            <Text style={styles.fieldLabel}>Description</Text>
+            <Text style={styles.fieldLabel}>(Optional) Description</Text>
             <TextInput
-              accessibilityLabel="Transfer description"
+              accessibilityLabel="Transfer description, optional"
               onChangeText={setDescription}
               placeholder="What is this transfer for?"
               placeholderTextColor="#89948f"
               style={styles.textInput}
               value={description}
             />
-            <Text style={styles.fieldLabel}>Narration</Text>
+            <Text style={styles.fieldLabel}>(Optional) Narration</Text>
             <TextInput
-              accessibilityLabel="Transfer narration"
+              accessibilityLabel="Transfer narration, optional"
               onChangeText={setNarration}
               placeholder="Add a note for the recipient"
               placeholderTextColor="#89948f"

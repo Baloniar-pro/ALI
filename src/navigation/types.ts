@@ -4,6 +4,7 @@ export type RootStackParamList = {
   SignIn: undefined;
   Home: { username: string };
   SignUp: undefined;
+  ForgotPassword: undefined;
   ActionDetails: { action: QuickAction; username: string };
 };
 

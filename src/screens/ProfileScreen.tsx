@@ -1,6 +1,7 @@
 import type { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { useState } from "react";
 import {
+  Alert,
   Image,
   SafeAreaView,
   ScrollView,
@@ -9,13 +10,30 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { useAuth } from "../context/AuthContext";
 import type { MainTabParamList } from "../navigation/types";
 
 type ProfileScreenProps = BottomTabScreenProps<MainTabParamList, "Profile">;
 
 export default function ProfileScreen({ route }: ProfileScreenProps) {
   const username = route.params.username;
+  const { signOut } = useAuth();
   const [isAccountNumberVisible, setIsAccountNumberVisible] = useState(false);
+  const [isSigningOut, setIsSigningOut] = useState(false);
+
+  const handleSignOut = async () => {
+    if (isSigningOut) {
+      return;
+    }
+
+    setIsSigningOut(true);
+    try {
+      await signOut();
+    } catch {
+      Alert.alert("Could not sign out", "Please try again.");
+      setIsSigningOut(false);
+    }
+  };
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -59,6 +77,17 @@ export default function ProfileScreen({ route }: ProfileScreenProps) {
           </View>
           <Text style={styles.securityNote}>Your password is stored securely on this device.</Text>
         </View>
+        <TouchableOpacity
+          accessibilityRole="button"
+          accessibilityState={{ disabled: isSigningOut }}
+          disabled={isSigningOut}
+          onPress={handleSignOut}
+          style={styles.signOutButton}
+        >
+          <Text style={styles.signOutLabel}>
+            {isSigningOut ? "Signing out..." : "Sign out"}
+          </Text>
+        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );
@@ -86,4 +115,14 @@ const styles = StyleSheet.create({
   detailLabel: { color: "#74817b", fontSize: 13 },
   detailValue: { flexShrink: 1, color: "#202b27", fontSize: 13, fontWeight: "600" },
   securityNote: { paddingVertical: 12, color: "#74817b", fontSize: 12, lineHeight: 18 },
+  signOutButton: {
+    minHeight: 48,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 22,
+    borderWidth: 1,
+    borderColor: "#dce5df",
+    borderRadius: 10,
+  },
+  signOutLabel: { color: "#9b3333", fontSize: 14, fontWeight: "700" },
 });

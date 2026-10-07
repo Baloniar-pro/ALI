@@ -19,12 +19,11 @@ import { authColors, authTypography } from "../src/theme/authTheme";
 type SignInScreenProps = NativeStackScreenProps<RootStackParamList, "SignIn">;
 
 export default function SignInScreen({ navigation }: SignInScreenProps) {
-  const { accountUsername, isReady, resetPassword, verifyCredentials } = useAuth();
+  const { isReady, signIn, verifyCredentials } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [isResettingPassword, setIsResettingPassword] = useState(false);
-
+  const [rememberMe, setRememberMe] = useState(false);
 
   const handleSignIn = async () => {
     if (!isReady) {
@@ -37,49 +36,21 @@ export default function SignInScreen({ navigation }: SignInScreenProps) {
       return;
     }
 
-    if (isResettingPassword) {
-      try {
-        const wasReset = await resetPassword(username.trim(), password);
-        if (!wasReset) {
-          Alert.alert("Reset failed", "No account was found for this username.");
-          return;
-        }
-
-        setIsResettingPassword(false);
-        setPassword("");
-        Alert.alert("Success", "Your password has been reset. You can now sign in.");
-      } catch {
-        Alert.alert("Storage error", "Your password could not be securely saved.");
-      }
-      return;
-    }
-
     if (!verifyCredentials(username.trim(), password)) {
       Alert.alert("No Records Founds", "Please sign up.");
       return;
     }
 
-    navigation.navigate("Home", { username: username.trim() });
-
+    try {
+      await signIn(username.trim(), rememberMe);
+    } catch {
+      Alert.alert("Sign-in error", "Your session could not be securely saved.");
+    }
   };
 
   const handleForgotPassword = () => {
-    if (isResettingPassword) {
-      setIsResettingPassword(false);
-      setPassword("");
-      return;
-    }
-
-    if (!accountUsername) {
-      Alert.alert("Reset Password", "Please sign up before resetting your password.");
-      return;
-    }
-
-    setIsResettingPassword(true);
-    setPassword("");
-    Alert.alert("Reset Password", "Enter your username and your new password.");
+    navigation.navigate("ForgotPassword");
   };
-
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -123,16 +94,26 @@ export default function SignInScreen({ navigation }: SignInScreenProps) {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity onPress={handleForgotPassword}>
-          <Text style={styles.forgotPassword}>
-            {isResettingPassword ? "Cancel Password Reset" : "Forgot Password?"}
-          </Text>
-        </TouchableOpacity>
+        <View style={styles.accountOptionsRow}>
+          <TouchableOpacity
+            accessibilityRole="checkbox"
+            accessibilityState={{ checked: rememberMe }}
+            onPress={() => setRememberMe(!rememberMe)}
+            style={styles.rememberMe}
+          >
+            <View style={[styles.checkbox, rememberMe && styles.checkboxChecked]}>
+              {rememberMe && <FontAwesome name="check" size={12} color="#ffffff" />}
+            </View>
+            <Text style={styles.rememberMeLabel}>Remember me</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={handleForgotPassword}>
+            <Text style={styles.forgotPassword}>Forgot Password?</Text>
+          </TouchableOpacity>
+        </View>
 
         <TouchableOpacity onPress={handleSignIn} style={styles.signInButton}>
-          <Text style={styles.signInButtonText}>
-            {isResettingPassword ? "RESET PASSWORD" : "SIGN IN"}
-          </Text>
+          <Text style={styles.signInButtonText}>SIGN IN</Text>
         </TouchableOpacity>
 
         <View style={styles.dividerContainer}>
@@ -148,18 +129,12 @@ export default function SignInScreen({ navigation }: SignInScreenProps) {
         </View>
 
         <View style={styles.signUpContainer}>
-          <Text style={styles.footerText}>
-            {isResettingPassword ? "Remembered your password? " : "Don't have an account? "}
-          </Text>
+          <Text style={styles.footerText}>Don't have an account? </Text>
           <TouchableOpacity
             accessibilityRole="button"
-            onPress={() =>
-              isResettingPassword
-                ? setIsResettingPassword(false)
-                : navigation.navigate("SignUp")
-            }
+            onPress={() => navigation.navigate("SignUp")}
           >
-            <Text style={styles.linkText}>{isResettingPassword ? "Sign In" : "Sign Up"}</Text>
+            <Text style={styles.linkText}>Sign Up</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -204,10 +179,37 @@ const styles = StyleSheet.create({
   passwordToggle: {
     padding: 4,
   },
+  accountOptionsRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    minHeight: 42,
+    marginHorizontal: 24,
+  },
+  rememberMe: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 9,
+  },
+  checkbox: {
+    width: 19,
+    height: 19,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 1,
+    borderColor: authColors.border,
+    borderRadius: 4,
+    backgroundColor: authColors.surface,
+  },
+  checkboxChecked: {
+    borderColor: authColors.primary,
+    backgroundColor: authColors.primary,
+  },
+  rememberMeLabel: {
+    color: authColors.primary,
+    ...authTypography.link,
+  },
   forgotPassword: {
-    alignSelf: "flex-end",
-    marginTop: 7,
-    marginRight: 24,
     color: authColors.primary,
     ...authTypography.link,
   },
