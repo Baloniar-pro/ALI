@@ -6,6 +6,7 @@ export type RootStackParamList = {
   SignUp: undefined;
   ForgotPassword: undefined;
   ActionDetails: { action: QuickAction; username: string };
+  AccountDetails: { username: string };
 };
 
 export type MainTabParamList = {

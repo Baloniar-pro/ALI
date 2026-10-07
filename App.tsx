@@ -6,6 +6,7 @@ import { AuthProvider, useAuth } from "./src/context/AuthContext";
 import MainTabNavigator from "./src/navigation/MainTabNavigator";
 import type { RootStackParamList } from "./src/navigation/types";
 import ActionDetailsScreen from "./src/screens/ActionDetailsScreen";
+import AccountDetailsScreen from "./src/screens/AccountDetailsScreen";
 import ForgotPasswordScreen from "./src/screens/ForgotPasswordScreen";
 import SignUpScreen from "./src/screens/SignUpScreen";
 
@@ -32,6 +33,7 @@ function AppNavigator() {
               initialParams={{ username: authenticatedUsername }}
             />
             <Stack.Screen name="ActionDetails" component={ActionDetailsScreen} />
+            <Stack.Screen name="AccountDetails" component={AccountDetailsScreen} />
           </>
         ) : (
           <>

@@ -7,6 +7,7 @@ export type Transaction = {
   title: string;
   detail: string;
   amount: string;
+  amountValue: number;
   kind: "income" | "expense";
   icon: ComponentProps<typeof Ionicons>["name"];
 };

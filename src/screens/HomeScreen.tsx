@@ -12,7 +12,7 @@ import {
   View,
 } from "react-native";
 import TransactionRow from "../components/TransactionRow";
-import { sampleTransactions } from "../data/transactions";
+import { formatNaira, getTransactionTotals, sampleTransactions } from "../data/transactions";
 import type { MainTabParamList, RootStackParamList } from "../navigation/types";
 
 type HomeScreenProps = CompositeScreenProps<
@@ -29,6 +29,8 @@ const quickActions = [
 export default function HomeScreen({ route, navigation }: HomeScreenProps) {
   const username = route.params.username;
   const [isBalanceVisible, setIsBalanceVisible] = useState(true);
+  const transactionTotals = getTransactionTotals();
+  const balance = transactionTotals.income - transactionTotals.expenses;
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -38,7 +40,14 @@ export default function HomeScreen({ route, navigation }: HomeScreenProps) {
             <Text style={styles.eyebrow}>BALONIAR</Text>
             <Text style={styles.greeting}>Hello, {username}</Text>
           </View>
-          <Text style={styles.avatar}>B</Text>
+          <TouchableOpacity
+            accessibilityRole="button"
+            accessibilityLabel="Open account details"
+            onPress={() => navigation.navigate("AccountDetails", { username })}
+            style={styles.avatarButton}
+          >
+            <Text style={styles.avatar}>B</Text>
+          </TouchableOpacity>
         </View>
 
         <View style={styles.balanceCard}>
@@ -58,7 +67,7 @@ export default function HomeScreen({ route, navigation }: HomeScreenProps) {
             </TouchableOpacity>
           </View>
           <Text style={styles.balanceAmount}>
-            {isBalanceVisible ? "₦15,500.00" : "₦••••••••"}
+            {isBalanceVisible ? formatNaira(balance) : "₦••••••••"}
           </Text>
           <Text style={styles.balanceNote}>Across your wallets</Text>
           <View style={styles.balanceFooter}>
@@ -85,13 +94,13 @@ export default function HomeScreen({ route, navigation }: HomeScreenProps) {
 
         <View style={styles.summaryRow}>
           <View style={styles.summaryItem}>
-            <Text style={styles.summaryLabel}>Income this month</Text>
-            <Text style={styles.incomeValue}>+₦185,000</Text>
+            <Text style={styles.summaryLabel}>Income in history</Text>
+            <Text style={styles.incomeValue}>+{formatNaira(transactionTotals.income)}</Text>
           </View>
           <View style={styles.summaryDivider} />
           <View style={styles.summaryItem}>
-            <Text style={styles.summaryLabel}>Spent this month</Text>
-            <Text style={styles.spentValue}>−₦21,250</Text>
+            <Text style={styles.summaryLabel}>Spent in history</Text>
+            <Text style={styles.spentValue}>−{formatNaira(transactionTotals.expenses)}</Text>
           </View>
         </View>
 
@@ -132,16 +141,23 @@ const styles = StyleSheet.create({
   },
   greeting: { marginTop: 5, color: "#183b34", fontSize: 22, fontWeight: "700" },
   avatar: {
-    width: 42,
-    height: 42,
+    width: 34,
+    height: 34,
     overflow: "hidden",
-    borderRadius: 21,
+    borderRadius: 17,
     backgroundColor: "#eaf3ef",
     color: "#183b34",
-    fontSize: 22,
+    fontSize: 18,
     fontWeight: "700",
-    lineHeight: 42,
+    lineHeight: 34,
     textAlign: "center",
+  },
+  avatarButton: {
+    width: 38,
+    height: 38,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 16,
   },
   balanceCard: { padding: 20, borderRadius: 14, backgroundColor: "#183b34" },
   balanceHeader: {

@@ -91,6 +91,12 @@ export default function ActionDetailsScreen({
   const [topUpRecipient, setTopUpRecipient] = useState("");
   const [topUpAmount, setTopUpAmount] = useState("");
   const title = actionTitles[action];
+  const transferAmount = Number(amount.replace(/,/g, ""));
+  const isSendFormComplete =
+    accountNumber.trim().length > 0 &&
+    bankName.trim().length > 0 &&
+    Number.isFinite(transferAmount) &&
+    transferAmount > 0;
   const selectedTopUpCategory = topUpCategories.find(
     (category) => category.id === topUpCategory,
   );
@@ -309,7 +315,7 @@ export default function ActionDetailsScreen({
         {action === "send" && (
           <View style={styles.transferForm}>
             <Text style={styles.formTitle}>Transfer details</Text>
-            <Text style={styles.fieldLabel}>Recipient name</Text>
+            <Text style={styles.fieldLabel}>Recipient name (Optional)</Text>
             <TextInput
               accessibilityLabel="Recipient name"
               autoCapitalize="words"
@@ -339,6 +345,9 @@ export default function ActionDetailsScreen({
               style={styles.textInput}
               value={bankName}
             />
+            <Text style={styles.lookupNote}>
+              Account-name verification is not connected. You can enter the name manually.
+            </Text>
             <Text style={styles.fieldLabel}>Amount</Text>
             <TextInput
               accessibilityLabel="Transfer amount"
@@ -369,8 +378,30 @@ export default function ActionDetailsScreen({
               multiline
               textAlignVertical="top"
             />
+            <TouchableOpacity
+              accessibilityRole="button"
+              accessibilityState={{ disabled: !isSendFormComplete }}
+              disabled={!isSendFormComplete}
+              onPress={() => {
+                Alert.alert(
+                  "Transfer preview",
+                  `To: ${recipientName.trim() || "Name not provided"}\nAccount number: ${accountNumber.trim()}\nBank: ${bankName.trim()}\nAmount: ₦${transferAmount.toLocaleString("en-NG", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}${description.trim() ? `\nDescription: ${description.trim()}` : ""}${
+                    narration.trim() ? `\nNarration: ${narration.trim()}` : ""
+                  }\n\nThis transfer has not been sent. Transfers are not enabled yet.`,
+                );
+              }}
+              style={[
+                styles.submitButton,
+                !isSendFormComplete && styles.submitButtonDisabled,
+              ]}
+            >
+              <Text style={styles.submitButtonText}>Send money</Text>
+            </TouchableOpacity>
             <Text style={styles.formNote}>
-              Entering these details does not send money. Transfers are not enabled yet.
+              The button becomes available when an account number, bank name, and valid amount are entered. Transfers are not enabled yet.
             </Text>
           </View>
         )}
@@ -453,6 +484,7 @@ const styles = StyleSheet.create({
     color: "#202b27",
     fontSize: 14,
   },
+  lookupNote: { marginTop: 7, color: "#74817b", fontSize: 11, lineHeight: 16 },
   multilineInput: { minHeight: 84, paddingTop: 12 },
   submitButton: {
     minHeight: 48,
@@ -462,6 +494,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: "#183b34",
   },
+  submitButtonDisabled: { opacity: 0.45 },
   submitButtonText: { color: "#ffffff", fontSize: 14, fontWeight: "700" },
   formNote: { marginTop: 14, color: "#74817b", fontSize: 12, lineHeight: 18 },
 });

@@ -1,8 +1,11 @@
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 import TransactionRow from "../components/TransactionRow";
-import { sampleTransactions } from "../data/transactions";
+import { formatNaira, getTransactionTotals, sampleTransactions } from "../data/transactions";
 
 export default function WalletScreen() {
+  const transactionTotals = getTransactionTotals();
+  const balance = transactionTotals.income - transactionTotals.expenses;
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.content}>
@@ -11,7 +14,7 @@ export default function WalletScreen() {
 
         <View style={styles.walletCard}>
           <Text style={styles.cardLabel}>AVAILABLE BALANCE</Text>
-          <Text style={styles.balance}>₦15,500.00</Text>
+          <Text style={styles.balance}>{formatNaira(balance)}</Text>
           <View style={styles.cardBottom}>
             <Text style={styles.cardName}>BALONIAR WALLET</Text>
             <Text style={styles.cardNumber}>•••• 2048</Text>
