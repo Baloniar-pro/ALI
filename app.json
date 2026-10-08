@@ -25,7 +25,18 @@
       "output": "single",
       "favicon": "./assets/images/favicon.png"
     },
-    "plugins": [["expo-splash-screen"], "expo-secure-store"],
+    "plugins": [
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#ffffff",
+          "image": "./assets/images/app icon.png",
+          "imageWidth": 300,
+          "resizeMode": "contain"
+        }
+      ],
+      "expo-secure-store"
+    ],
     "experiments": {
       "reactCompiler": true
     }

@@ -1,5 +1,8 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import * as SplashScreen from "expo-splash-screen";
+import { useEffect } from "react";
+import { Platform } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { AuthProvider, useAuth } from "./src/features/auth/context/AuthContext";
 import MainTabNavigator from "./src/navigation/MainTabNavigator";
@@ -12,8 +15,18 @@ import SignUpScreen from "./src/features/auth/screens/SignUpScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
+if (Platform.OS !== "web") {
+  SplashScreen.preventAutoHideAsync();
+}
+
 function AppNavigator() {
   const { authenticatedUsername, isReady } = useAuth();
+
+  useEffect(() => {
+    if (isReady && Platform.OS !== "web") {
+      SplashScreen.hide();
+    }
+  }, [isReady]);
 
   if (!isReady) {
     return null;
