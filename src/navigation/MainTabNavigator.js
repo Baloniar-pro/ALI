@@ -1,31 +1,28 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import type { NativeStackScreenProps } from "@react-navigation/native-stack";
-import HomeScreen from "../features/dashboard/screens/HomeScreen";
+import colors from "../theme/colors";
+import CardsScreen from "../features/wallet/screens/CardsScreen";
 import ProfileScreen from "../features/account/screens/ProfileScreen";
+import HomeScreen from "../features/dashboard/screens/HomeScreen";
 import TransactionsScreen from "../features/transactions/screens/TransactionsScreen";
-import WalletScreen from "../features/wallet/screens/WalletScreen";
-import type { MainTabParamList, RootStackParamList } from "./types";
 
-type MainTabNavigatorProps = NativeStackScreenProps<RootStackParamList, "Home">;
+const Tab = createBottomTabNavigator();
 
-const Tab = createBottomTabNavigator<MainTabParamList>();
-
-export default function MainTabNavigator({ route }: MainTabNavigatorProps) {
+export default function MainTabNavigator({ route }) {
   const username = route.params.username;
 
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: "#183b34",
-        tabBarInactiveTintColor: "#89948f",
+        tabBarActiveTintColor: colors.primary,
+        tabBarInactiveTintColor: colors.muted,
         tabBarStyle: {
-          height: 62,
+          height: 66,
           paddingTop: 6,
-          paddingBottom: 7,
-          borderTopColor: "#e7ece9",
-          backgroundColor: "#ffffff",
+          paddingBottom: 9,
+          borderTopColor: colors.border,
+          backgroundColor: colors.surface,
         },
         tabBarLabelStyle: { fontSize: 11, fontWeight: "600" },
       }}
@@ -41,20 +38,20 @@ export default function MainTabNavigator({ route }: MainTabNavigatorProps) {
         }}
       />
       <Tab.Screen
-        name="Wallet"
-        component={WalletScreen}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="wallet-outline" size={size} color={color} />
-          ),
-        }}
-      />
-      <Tab.Screen
         name="Transactions"
         component={TransactionsScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="receipt-outline" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Cards"
+        component={CardsScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="card-outline" size={size} color={color} />
           ),
         }}
       />

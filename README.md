@@ -36,6 +36,12 @@ Use the terminal shortcuts to open the app in an Android emulator, iOS simulator
 
 The project uses React Navigation, not Expo Router. Feature-specific screens and state live under `src/features`; shared UI belongs in `src/components`, and navigation definitions belong in `src/navigation`. `App.tsx` is the Expo application entry point.
 
+## Banking app preview
+
+The signed-in experience includes a balance dashboard, wallet activity, transaction history filters, profile settings, and send/receive/top-up preview flows. Shared banking UI colors live in `src/theme/colors.ts`.
+
+Balances and transaction history are sample data for the interface preview. The app does not connect to a bank, payment provider, or live transaction service.
+
 ## Useful commands
 
 ```bash
